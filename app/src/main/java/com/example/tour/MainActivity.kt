@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.ListListener {
 
     private val genresList = arrayListOf("最新促銷", "熱門城市")
     private val contextList = arrayListOf("七里香", "風景", "衣服", "吉他", "湖面", "眼鏡", "台中", "台南", "高雄", "台北市", "桃園", "澎湖")
-    private var head = 0
-    private var tail = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +47,8 @@ class MainActivity : AppCompatActivity(), MainAdapter.ListListener {
 
     private fun initData(): ArrayList<Tour>{
 
+        var head = 0
+        var tail = 5
         val mainList = arrayListOf<Tour>()
 
         for(i in 0..genresList.lastIndex) {
