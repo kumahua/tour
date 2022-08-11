@@ -1,13 +1,8 @@
 package com.example.tour
 
-import android.R
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tour.databinding.ActivityMainBinding
@@ -18,8 +13,9 @@ class MainActivity : AppCompatActivity(), MainAdapter.ListListener {
     private lateinit var v: ActivityMainBinding
     private lateinit var mainAdapter: MainAdapter
 
-    private val genresList = arrayListOf("最新促銷", "熱門城市")
-    private val contextList = arrayListOf("七里香", "風景", "衣服", "吉他", "湖面", "眼鏡", "台中", "台南", "高雄", "台北市", "桃園", "澎湖")
+    private val genresList = arrayListOf("最新促銷", "熱門城市", "test")
+    private val contextList = arrayListOf("七里香", "風景", "衣服", "吉他", "湖面", "眼鏡")
+    private val cityList = arrayListOf("台中", "台南", "高雄", "台北市", "桃園", "澎湖")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,23 +43,34 @@ class MainActivity : AppCompatActivity(), MainAdapter.ListListener {
 
     private fun initData(): ArrayList<Tour>{
 
-        var head = 0
-        var tail = 5
         val mainList = arrayListOf<Tour>()
 
         for(i in 0..genresList.lastIndex) {
 
             val nestArray: MutableList<Card> = ArrayList()
+            val randomSlogan = contextList.shuffled()
+            val randomCity = cityList.shuffled()
 
-            for (j in head..tail) {
-
-                nestArray.add(Card(j, contextList[j]))
+            when(i) {
+                0 -> {
+                    for (j in 0..5) {
+                        nestArray.add(Card(contextList.indexOf(randomSlogan[j]), randomSlogan[j]))
+                    }
+                }
+                1 -> {
+                    for (j in 0..5) {
+                        nestArray.add(Card(cityList.indexOf(randomCity[j]), randomCity[j]))
+                    }
+                }
+                else -> {
+                    for (j in 0..5) {
+                        nestArray.add(Card(cityList.indexOf(randomCity[j]), randomCity[j]))
+                    }
+                }
             }
 
-            head = tail + 1
-            tail = contextList.lastIndex
-
             mainList.add(Tour(genresList[i], nestArray))
+            Log.d("tour", mainList.toString())
         }
 
         return mainList
