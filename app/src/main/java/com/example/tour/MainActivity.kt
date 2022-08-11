@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.ListListener {
     private lateinit var v: ActivityMainBinding
     private lateinit var mainAdapter: MainAdapter
 
-    private val genresList = arrayListOf("最新促銷", "熱門城市", "test")
+    private val genresList = arrayListOf("最新促銷", "熱門城市", "熱門鄉鎮")
     private val contextList = arrayListOf("七里香", "風景", "衣服", "吉他", "湖面", "眼鏡")
     private val cityList = arrayListOf("台中", "台南", "高雄", "台北市", "桃園", "澎湖")
 
@@ -48,21 +48,20 @@ class MainActivity : AppCompatActivity(), MainAdapter.ListListener {
         for(i in 0..genresList.lastIndex) {
 
             val nestArray: MutableList<Card> = ArrayList()
-            val randomSlogan = contextList.shuffled()
-            val randomCity = cityList.shuffled()
 
             when(i) {
                 0 -> {
                     for (j in 0..5) {
-                        nestArray.add(Card(contextList.indexOf(randomSlogan[j]), randomSlogan[j]))
+                        nestArray.add(Card(j, contextList[j]))
                     }
                 }
                 1 -> {
                     for (j in 0..5) {
-                        nestArray.add(Card(cityList.indexOf(randomCity[j]), randomCity[j]))
+                        nestArray.add(Card(j, cityList[j]))
                     }
                 }
                 else -> {
+                    val randomCity = cityList.shuffled()
                     for (j in 0..5) {
                         nestArray.add(Card(cityList.indexOf(randomCity[j]), randomCity[j]))
                     }
